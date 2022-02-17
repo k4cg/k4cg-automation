@@ -38,6 +38,7 @@ jobs:
         # Path to a config file
         #config: # optional
   build:
+    needs: lint
     runs-on: ubuntu-latest
 
     steps:
