@@ -23,5 +23,16 @@
 * [ ] Doku fuer terraform Nutzung und terraform cloud
 * [ ] buildah installieren (nach Upgrade/Wechsel auf Manjaro)
 
+## Links
 
-Test to see if this triggers the development workflow.
+* https://morethancertified.com/terraform-in-docker/
+* https://docs.docker.com/engine/reference/builder/#user
+* https://pip.pypa.io/en/stable/cli/pip_install/#requirement-specifiers
+* https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+* https://jdhao.github.io/2021/01/17/install_python3_in_ubuntu_docker/
+* https://www.digitalocean.com/community/tutorials/how-to-set-up-ansible-inventories
+* https://polarsquad.com/blog/ansible-best-practices-part-2
+* https://github.com/zimmertr/Bootstrap-Kubernetes-with-QEMU/blob/master/playbooks/main/deploy_qcow2_vms.yml
+* https://www.michalklempa.com/2020/05/ansible-in-docker/
+* https://matduggan.com/are-dockerfiles-good-enough/
+* https://snyk.io/blog/10-docker-image-security-best-practices/
