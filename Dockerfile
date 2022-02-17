@@ -3,7 +3,7 @@ FROM public.ecr.aws/lts/ubuntu:20.04_stable
 
 LABEL description="Container for automation purposes"
 LABEL version="0.0.1"
-LABEL authors="lnxu"
+LABEL authors="lnxu@k4cg"
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
