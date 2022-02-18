@@ -45,12 +45,12 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image-name:${{ github.sha }}
     
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.2.2
       with:
-        image-ref: 'my-image-name:$(date +%s)'
+        image-ref: 'my-image-name:${{ github.sha }}'
         format: 'sarif'
         output: 'trivy-results.sarif'
 
