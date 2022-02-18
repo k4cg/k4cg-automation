@@ -20,7 +20,7 @@ jobs:
       # You may pin to the exact commit or the version.
       # uses: hadolint/hadolint-action@d7b38582334d9ac11c12021c16f21d63015fa250
       uses: hadolint/hadolint-action@v1.6.0
-      #with:
+      with:
         # The path to the Dockerfile to lint
         #dockerfile: # optional, default is Dockerfile
         # Search for specified dockerfile recursively, from the project root
@@ -34,7 +34,7 @@ jobs:
 
         #failure-threshold: # optional, default is info
         # A space separated string of rules to ignore
-        #ignore: # optional
+        ignore: DL3008 # optional
         # Path to a config file
         #config: # optional
   build:
