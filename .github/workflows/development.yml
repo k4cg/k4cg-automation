@@ -48,7 +48,7 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@2.2
+      uses: aquasecurity/trivy-action@0.2.2
       with:
         image-ref: 'my-image-name:$(date +%s)'
         format: 'sarif'
