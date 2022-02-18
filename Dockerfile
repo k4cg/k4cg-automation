@@ -1,5 +1,8 @@
 # not pinning to a specific hash should be fine for our use case
-FROM public.ecr.aws/lts/ubuntu:20.04_stable
+# https://ubuntu.com/security/docker-images
+# FROM public.ecr.aws/lts/ubuntu:20.04_stable
+# https://hub.docker.com/_/ubuntu/ official image should do the job
+FROM ubuntu:20.04
 
 LABEL description="Container for automation purposes"
 LABEL version="0.0.1"
