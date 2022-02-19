@@ -56,7 +56,7 @@ jobs:
         output: 'trivy-results.sarif'
 
     - name: "DEBUG: output generated sarif file"
-      run: echo trivy-results.sarif
+      run: cat trivy-results.sarif
     
     # will run if _any_ step fails
     # if build step fails (ie rate limits), there will be no image to scan and no output to upload so this step will fail
