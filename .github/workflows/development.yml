@@ -52,11 +52,12 @@ jobs:
       uses: aquasecurity/trivy-action@0.2.2
       with:
         image-ref: 'k4cg-automation:${{ github.sha }}'
-        # format: 'sarif'
-        # output: 'trivy-results.sarif'
-        format: 'json'
-        hide-progress: false
+        format: 'sarif'
+        output: 'trivy-results.sarif'
 
+    - name: "DEBUG: output generated sarif file"
+      run: echo trivy-results.sarif
+    
     # will run if _any_ step fails
     # if build step fails (ie rate limits), there will be no image to scan and no output to upload so this step will fail
     # TODO: move to separate job, add needs: build? jobs may run on different runners, we need to store/pass the image somhow
