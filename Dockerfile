@@ -11,6 +11,7 @@ LABEL authors="lnxu@k4cg"
 ARG DEBIAN_FRONTEND="noninteractive"
 
 # upgrade ALL the packages!! we just want the latest versions and don't care for specific version (at least for now)
+# hadolint warning (https://github.com/hadolint/hadolint/wiki/DL3008) suppressed
 RUN apt-get update \
   && apt-get install --no-install-recommends -y python3 python3-pip software-properties-common \
   && add-apt-repository --yes --update ppa:ansible/ansible \
