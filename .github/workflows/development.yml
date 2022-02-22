@@ -13,49 +13,26 @@ on:
 jobs:
   lint: 
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v2
-    - name: Hadolint Action
-      # You may pin to the exact commit or the version.
-      # uses: hadolint/hadolint-action@d7b38582334d9ac11c12021c16f21d63015fa250
+    - name: Run hadolint action
       uses: hadolint/hadolint-action@v1.6.0
       with:
-        # The path to the Dockerfile to lint
-        #dockerfile: # optional, default is Dockerfile
-        # Search for specified dockerfile recursively, from the project root
-        #recursive: # optional, default is false
-        # The output format, one of [tty (default) | json | checkstyle |
-    # codeclimate | gitlab_codeclimate ]
+        # A space separated string of rules to ignore, optional
+        ignore: DL3008
 
-        #format: # optional, default is tty
-        # Fail the pipeline only if rules with severity above this threshold are
-    # violated. One of [error | warning | info (default) | style | ignore]
-
-        #failure-threshold: # optional, default is info
-        # A space separated string of rules to ignore
-        ignore: DL3008 # optional
-        # Path to a config file
-        #config: # optional
   build:
     needs: lint
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:${{ github.sha }}
-    
+      run: docker build . --file Dockerfile --tag k4cg-automation:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.2.2
       with:
-        image-ref: 'my-image-name:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
-      if: always() 
-      with:
-        sarif_file: 'trivy-results.sarif'
+        image-ref: 'k4cg-automation:${{ github.sha }}'
+        severity: 'CRITICAL,HIGH'
+        format: 'table'
+        exit-code: 1
