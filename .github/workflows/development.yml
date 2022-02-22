@@ -35,20 +35,6 @@ jobs:
       uses: aquasecurity/trivy-action@0.2.2
       with:
         image-ref: 'k4cg-automation:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        hide-progress: false
-    - name: "DEBUG: output generated sarif file"
-      run: cat trivy-results.sarif
-    
-    # will run if _any_ step fails
-    # if build step fails (ie rate limits), there will be no image to scan and no output to upload so this step will fail
-    # TODO: move to separate job, add needs: build? jobs may run on different runners, we need to store/pass the image somhow
-    # is always() expression really necessary? https://github.com/marketplace/actions/aqua-security-trivy#using-trivy-with-github-code-scanning
-    # exit code is by default 0 even when vulnerabilities are found. 
-    # how to get notified about security findings then if workflow run does not fail even when vulnerabilities are found?
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
-      if: always() 
-      with:
-        sarif_file: trivy-results.sarif
+        severity: 'CRITICAL,HIGH,MEDIUM'
+        format: 'table'
+        exit-code: 1
