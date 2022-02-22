@@ -35,6 +35,6 @@ jobs:
       uses: aquasecurity/trivy-action@0.2.2
       with:
         image-ref: 'k4cg-automation:${{ github.sha }}'
-        severity: 'CRITICAL,HIGH,MEDIUM'
+        severity: 'CRITICAL,HIGH'
         format: 'table'
         exit-code: 1
