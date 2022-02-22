@@ -52,9 +52,3 @@ jobs:
       if: always() 
       with:
         sarif_file: trivy-results.sarif
-
-    # - name: Run Azure container image scan
-    #   uses: Azure/container-scan@v0.1
-    #   with:
-    #     image-name: k4cg-automation:${{ github.sha }}
-    #     severity-threshold: MEDIUM
