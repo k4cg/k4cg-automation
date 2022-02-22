@@ -3,11 +3,11 @@
 * [x] Basic docker image bauen
 * [ ] Github Actions:
   * [ ] bei Aenderung in Dockerfile:
-  * [ ] bei PR (Erstellung, Aktualisierung) und Push auf Branch: hadolint, bauen, security check
+  * [x] bei PR (Erstellung, Aktualisierung) und Push auf Branch: hadolint, bauen, security check
   * [ ] bei merge auf main: hadolint, bauen, security check, publishen
   * [ ] woechentlich hadolint, bauen, security check, publishen
 * [ ] Github Workflows testen
-  * [ ] development (security scan)
+  * [x] development (security scan)
   * [ ] merge auf main
   * [ ] trigger fuers neu bauen jede Woche
 * [ ] Doku Github Actions
@@ -25,6 +25,7 @@
 * [ ] terraform cloud fuer tf state
 * [ ] Doku fuer terraform Nutzung und terraform cloud
 * [ ] buildah installieren (nach Upgrade/Wechsel auf Manjaro)
+* [ ] Github Security (Upload von SARIF reports)
 
 ## Links
 

@@ -1,8 +1,19 @@
 # k4cg automation
 
-## Notizen
+## Github Actions
 
-### Github Actions
+### Workflows
+
+#### development
+
+* Laeuft immer bei:
+  * push auf branches ausser main
+  * PRs mit target branch main
+* Jobs
+  * lint: hadolint
+  * build: Image bauen, Scan mit trivy (kein Upload zu Github Security)
+
+### Notizen
 
 * https://github.blog/2022-02-02-build-ci-cd-pipeline-github-actions-four-steps/
 * https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
