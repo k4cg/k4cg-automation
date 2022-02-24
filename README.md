@@ -1,5 +1,14 @@
 # k4cg automation
 
+Repo, um verschiedenes Automatisierungszeug, Docker und Github Actions auszuprobieren:
+
+* Docker Image mit allen Tools und Abhaengigkeiten fuer Automatisierungsdinge bauen (ansible, terraform)
+* Docker Image Lifecycle mit Github Actions (lint, build, scan, publish)
+* Playbooks fuer VM Template Erstellung und VM Provisionierung mit ansible und proxmox
+* VM Provisionierung mit terraform und proxmox
+* Flatcar Linux und Proxmox ausprobieren
+* ...
+
 ## Github Actions
 
 ### Workflows
