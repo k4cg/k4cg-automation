@@ -27,6 +27,18 @@
 * [ ] buildah installieren (nach Upgrade/Wechsel auf Manjaro)
 * [ ] Github Security (Upload von SARIF reports)
 
+## Reusable Workflows
+
+* lint_build
+* publish
+* scan
+
+### Workflows
+
+* development: lint_build, scan
+* release: lint_build, scan, publish
+* security_scan: scan
+
 ## Links
 
 ### Docker
