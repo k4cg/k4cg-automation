@@ -1,0 +1,5 @@
+---
+ansible_user: root
+proxmox_user: "{{ vault_beehive_user }}"
+proxmox_password: "{{ vault_beehive_password }}"
+ip_address: 192.168.5.10
