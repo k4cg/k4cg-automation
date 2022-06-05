@@ -1,0 +1,7 @@
+---
+all:
+  children:
+    hypervisors:
+      hosts:
+        beehive.intern.k4cg.org:
+        proxmox.intern.k4cg.org:

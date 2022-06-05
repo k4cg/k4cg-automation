@@ -1,0 +1,25 @@
+---
+- name: Test ansible proxmox stuff 
+  hosts: localhost
+
+  tasks:
+  # - name: debug var proxmox_beehive
+  #   ansible.builtin.debug:
+  #     var: proxmox_beehive
+  
+  # - name: debug var proxmox_host2
+  #   ansible.builtin.debug:
+  #     var: proxmox_host2
+
+  - name: Get state of a specific vm
+    community.general.proxmox_kvm:
+      api_user: "{{ proxmox_host2.user }}"
+      api_password: "{{ proxmox_host2.password }}"
+      api_host: "{{ proxmox_host2.ip_address }}"
+      vmid: 101
+      state: current
+    register: proxmox_response
+
+  - name: debug proxmox server response
+    ansible.builtin.debug:
+      var: proxmox_response
