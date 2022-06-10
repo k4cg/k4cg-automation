@@ -22,7 +22,7 @@ Repo, um verschiedenes Automatisierungszeug, Docker und Github Actions auszuprob
   * lint: hadolint
   * build: Image bauen, Scan mit trivy (kein Upload zu Github Security)
 
-### Notizen
+### Notizen zu Github Actions
 
 * [How to build a CI/CD pipeline with GitHub Actions in four simple steps](https://github.blog/2022-02-02-build-ci-cd-pipeline-github-actions-four-steps/)
 * [Understanding GitHub Actions (Basics)](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
@@ -32,16 +32,19 @@ Repo, um verschiedenes Automatisierungszeug, Docker und Github Actions auszuprob
 
 ## Ansible
 
-### Installation
+### Installation (mit pip und pipenv)
 
 Voraussetzung fuer diese Methode: der python package manager `pip` ist bereits auf dem System installiert ([Installationsanleitungen](https://pip.pypa.io/en/stable/installation/)).
-Fuer die Verwaltung von python dependencies ist es unter Umstaenden sinnvoll, `pipenv` zu nutzen ([pipenv Webseite](https://pipenv.pypa.io/en/latest/)): `python3 -m pip install --user pipenv`
-* [Doku Ansible Installation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-* `pipenv install ansible`
+Fuer die Verwaltung von python dependencies ist es unter Umstaenden sinnvoll, `pipenv` zu nutzen ([pipenv Webseite](https://pipenv.pypa.io/en/latest/)):  
+`python3 -m pip install --user pipenv`
 
-### Benoetigte Ansible Module
+* [Doku zur Ansible Installation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+* tl;dr: `pipenv install ansible` (erstellt ggf. automatisch eine neue virtuelle Python Umgebung)
 
-* `community.general.proxmox_kvm` ([Dokumentation](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html)). Benoetigt die python Module `requests` und `proxmoxer` (siehe [Requirements](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html#requirements))
+### Benoetigte Ansible Module fuer proxmox
+
+* `community.general.proxmox_kvm` ([Dokumentation](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html)). Sollte bereits in der Ansible Installation enthalten sein (`ansible-galaxy collection list`).
+* Das Ansible Modul benoetigt die python Module `requests` und `proxmoxer` (siehe [Requirements](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html#requirements)). Installation mit `pipenv install proxmoxer` und ``pipenv install proxmoxer``
 
 ### Notes
 
@@ -59,6 +62,10 @@ Fuer die Verwaltung von python dependencies ist es unter Umstaenden sinnvoll, `p
 
 #### Playbooks ausfuehren
 
+* Sicherstellen, dass eine SSH Verbindung zum Zielhost aufgebaut werden kann
+* Anmelden an der Proxmox Web-UI, links den Server unterhalb von Datacenter auswaehlen, dann rechts oben auf `Shell` klicken. Key in ~/.ssh/authorized_keys hinterlegen.
+* Falls fuer Ansible ein eigener Nutzer angelegt wurde, muss der Nutzer auch in der Variable `ansible_user` stehen.
+* Damit Ansible nicht jedes Mal nach dem Passwort fuer den Ansible Vault fragt, kann das Passwort in einer Datei abgelegt werden.
 * `ansible-playbook -v --vault-password-file ./ansible/vault-password-file ./ansible/homeassi.yml -i ./ansible/inventories/k4cg/inventory.yml`
 
 #### Neue Secrets hinzufuegen
