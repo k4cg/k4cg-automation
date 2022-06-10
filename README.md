@@ -70,7 +70,25 @@ Fuer die Verwaltung von python dependencies ist es unter Umstaenden sinnvoll, `p
 
 #### Neue Secrets hinzufuegen
 
-* `ansible-vault view ./ansible/inventories/k4cg/group_vars/all/vault.yml > vault.yml.tmp`
+* `ansible-vault decrypt ./ansible/inventories/k4cg/group_vars/proxmox/vault.yml`
 * Aenderungen machen
-* `ansible-vault encrypt vault.yml.tmp`
-* `mv vault.yml.tmp ./ansible/inventories/k4cg/group_vars/all/vault.yml`
+* `ansible-vault encrypt ./ansible/inventories/k4cg/group_vars/proxmox/vault.yml`
+
+#### Externe Verbindung (Internet -> K4CG)
+
+* SSH Key auf dem K4CG Bastion Host hinterlegen ([Doku im K4CG Wiki](https://k4cg.org/index.php/Host:sebastian.intern.k4cg.org))
+* ProxyJump in ~/.ssh/config ([Blogpost von Jeff Geerling](https://www.jeffgeerling.com/blog/2022/using-ansible-playbook-ssh-bastion-jump-host))
+
+```bash
+Host k4cg-bastion
+  User <username>
+  Port 22220
+  Hostname k4cgrouter.duckdns.org
+Host beehive.intern.k4cg.org
+   ProxyJump k4cg-bastion
+Host proxmox.intern.k4cg.org
+   ProxyJump k4cg-bastion
+```
+
+* Portforwarding fuer die Proxmox Web-UI: `ssh -p 22220 <username>@k4cgrouter.duckdns.org -L 8006:192.168.5.{10,31}:8006`
+* Alle Playbooks, die mit der Proxmox API sprechen, bekommen dann folgende Konfig: `api_host: localhost:8006`
