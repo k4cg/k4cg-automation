@@ -3,4 +3,4 @@ ansible_user: root
 proxmox_user: "{{ vault_proxmox_host2_user }}"
 proxmox_password: "{{ vault_proxmox_host2_password }}"
 ip_address: 192.168.5.31
-storage: local-lvm
+storage_name: local-lvm
