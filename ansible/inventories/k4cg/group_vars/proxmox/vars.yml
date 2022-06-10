@@ -1,0 +1,3 @@
+---
+# secrets are stored encrypted in vault.yml, 
+# see https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#keep-vaulted-variables-safely-visible
