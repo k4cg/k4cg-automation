@@ -1,3 +1,4 @@
 ---
-# secrets are stored encrypted in vault.yml, 
+# all proxmox related secrets are stored encrypted in vault.yml, 
 # see https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#keep-vaulted-variables-safely-visible
+# see host_vars for specific vars for each proxmox host
