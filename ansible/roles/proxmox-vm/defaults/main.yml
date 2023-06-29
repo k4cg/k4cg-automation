@@ -1,0 +1,41 @@
+---
+# defaults file for proxmox-vm
+enable_acpi: yes # enable acpi
+enable_qemu_guest_agent: yes # enable qemu guest agent
+autostart_vm: yes # automatically start vm after host reboot/shutdown
+balloon_mb: 512 # https://pve.proxmox.com/pve-docs-6/chapter-qm.html#qm_memory
+bios_type: seabios # bios, use "ovmf" for uefi
+boot_order: c # boot on floppy a, hard disk c, CD-ROM d, or network n
+bootdisk: scsi0
+num_cores: 1
+cpu_type: kvm64 # makes it possible to migrate to other host with different cpus
+cpuunits: 1024 # default, https://pve.proxmox.com/pve-docs-6/chapter-qm.html#qm_cpu
+vm_description: "VM created by ansible"
+image_format: raw # only choice for lvm(-thin). qcow2/subvol otherwise
+freeze_cpu_at_startup: no
+hotplug_devices: "network,disk,usb"
+enable_kvm_hardware_virtualization: yes # kvm hardware virtualization
+machine_type: q35
+memory_mb: 512
+vm_name: "proxmox-vm-ansible" # actual parametes is "name"
+vm_nic_config: "virtio,bridge=vmbr0"
+cloned_vm_id: 999 # VMID for the clone. If newid is not set, the next available VM ID will be fetched from ProxmoxAPI
+proxmox_node_name: "proxmox-node" # set this accordingly
+enable_numa: no
+start_vm_at_boot: yes # start vm on boot of proxmox server
+os_type: l26 # linux, kernel 2.6+
+# no default disk for now
+# vm_disk_config: "local-lvm:16,format=raw,discard=on"
+scsi_controller_type: virtio-scsi-pci
+num_sockets: 1
+rtc_start_date: now # start date for real time clock
+desired_vm_state: present
+target_storage_name: "local-lvm" # Target storage for full clone
+use_tablet_for_pointer: no # only relevant for vnc stuff
+enable_template: no
+timeout_value: 30
+validate_certs: no
+vga_adapter_type: std
+vm_id: 999 # If not set the next available ID will be fetched from ProxmoxAPI
+
+

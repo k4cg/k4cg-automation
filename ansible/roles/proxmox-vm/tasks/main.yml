@@ -1,0 +1,49 @@
+---
+# tasks file for proxmox-vm
+
+- name: Create virtual machine
+  community.general.proxmox_kvm:
+    api_user: "{{ api_user }}"
+    api_password: "{{ api_password }}"
+    api_host: "{{ api_host }}"
+    acpi: "{{ enable_acpi }}"
+    agent: "{{ enable_qemu_guest_agent }}"
+    autostart: "{{ autostart_vm }}"
+    # balloon: "{{ balloon_mb }}"
+    balloon: "{{ memory_mb }}"
+    bios: "{{ bios_type }}"
+    boot: "{{ boot_order }}"
+    bootdisk: "{{ bootdisk }}"
+    cores: "{{ num_cores }}"
+    cpu: "{{ cpu_type }}"
+    cpuunits: "{{ cpuunits }}"
+    description: "{{ vm_description }}"
+    format: "{{ image_format }}"
+    freeze: "{{ freeze_cpu_at_startup }}"
+    hotplug: "{{ hotplug_devices }}"
+    kvm: "{{ enable_kvm_hardware_virtualization }}"
+    machine: "{{ machine_type }}"
+    memory: "{{ memory_mb }}"
+    name: "{{ vm_name }}"
+    net: 
+      net0: "{{ vm_nic_config }}"      
+    # newid: "{{ cloned_vm_id }}" # VMID for the clone. If newid is not set, the next available VM ID will be fetched from ProxmoxAPI
+    node: "{{ proxmox_node_name }}"
+    numa_enabled: "{{ enable_numa }}"
+    onboot: "{{ start_vm_at_boot }}"
+    ostype: "{{ os_type }}"
+    # no default disk for now
+    # scsi:
+    #   scsi0: "{{ vm_disk_config }}"
+    scsihw: "{{ scsi_controller_type }}"
+    sockets: "{{ num_sockets }}"
+    startdate: "{{ rtc_start_date }}"
+    state: "{{ desired_vm_state }}"
+    storage: "{{ target_storage_name }}"
+    tablet: "{{ use_tablet_for_pointer }}"
+    template: "{{ enable_template }}"
+    timeout: "{{ timeout_value }}"
+    validate_certs: "{{ validate_certs }}"
+    vga: "{{ vga_adapter_type }}"
+    vmid: "{{ vm_id }}"
+  delegate_to: localhost
