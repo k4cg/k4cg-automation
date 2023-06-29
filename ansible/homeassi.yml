@@ -1,27 +1,54 @@
 ---
-- name: Test ansible proxmox stuff 
-  hosts: proxmox.intern.k4cg.org
+- hosts: proxmox.intern.k4cg.org
+  
+  roles:
+    - role: proxmox-vm
+      vars:
+        api_user: "{{ proxmox_user }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: localhost:8006
+        vm_name: "proxmox-vm-ansible-test1"
+        proxmox_node_name: "proxmox"
+        desired_vm_state: present
+        vm_id: 6969
+        # vm_disk_config: "{{ storage_name }}:32,format=raw,discard=on"
+        vm_description: "hass.io test - vm created by ansible playbook"
+        memory_mb: 2048
+        num_cores: 2
+        bios_type: ovmf
+        enable_qemu_guest_agent: no
 
+  vars:
+    haos_version: "8.1"
+    haos_download_file_name: "haos_ova-{{ haos_version }}.qcow2.xz"
+    haos_extracted_file_name: "haos_ova-{{ haos_version }}.qcow2"
+    haos_download_url: "https://github.com/home-assistant/operating-system/releases/download/{{ haos_version }}/{{ haos_download_file_name }}"
+  
   tasks:
-  - name: Get state of a specific vm
-    community.general.proxmox_kvm:
-      api_user: "{{ proxmox_user }}"
-      api_password: "{{ proxmox_password }}"
-      api_host: "{{ ip_address }}"
-      vmid: 101
-      state: current
-    delegate_to: localhost
-    register: proxmox_response
+    - name: Download compressed haos qcow2 image
+      ansible.builtin.uri:
+        url: https://github.com/home-assistant/operating-system/releases/download/8.1/haos_ova-8.1.qcow2.xz
+        dest: /tmp/{{ haos_download_file_name }}
+        creates: /tmp/{{ haos_download_file_name }}
+    
+    - name: Extract haos image
+      ansible.builtin.command:
+        chdir: /tmp
+        cmd: "xz -k -d -v {{ haos_download_file_name }}"
+        creates: "{{ haos_extracted_file_name }}"
 
-  - name: debug proxmox server response
-    ansible.builtin.debug:
-      var: proxmox_response
+    - name: Import image
+      ansible.builtin.command:
+        chdir: /tmp
+        cmd: "qm importdisk {{ vm_id }} {{ haos_extracted_file_name }} {{ storage_name }}"
+      register: import_image
 
-  # - name: Get state of a specific vm
-  #   community.general.proxmox_kvm:
-  #     api_user: "{{ proxmox_host2.user }}"
-  #     api_password: "{{ proxmox_host2.password }}"
-  #     api_host: "{{ proxmox_host2.ip_address }}"
-  #     vmid: 9900
-  #     state: current
-  #   register: proxmox_response
+    - name: Print import image result
+      ansible.builtin.debug:
+        var: import_image
+
+    - name: Attach disk to scsi0
+      ansible.builtin.command:
+        cmd: "qm set {{ vm_id }} --scsi0 {{ storage_name }}:vm-{{ vm_id }}-disk-0,discard=on"
+
+# TODO: clean up if everything went fine
